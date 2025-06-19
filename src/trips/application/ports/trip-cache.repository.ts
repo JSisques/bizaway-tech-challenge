@@ -1,7 +1,12 @@
 import { Trip } from 'src/trips/domain/trip';
 
 export abstract class TripCacheRepository {
-  abstract getTripById(id: string): Promise<Trip | null>;
-  abstract setTrip(trip: Trip): Promise<void>;
-  abstract deleteTrip(id: string): Promise<void>;
+  public abstract get(cacheKey: string): Promise<Trip | Trip[] | null>;
+  public abstract set(cacheKey: string, trip: Trip): Promise<void>;
+  public abstract setSearchQuery(
+    cacheKey: string,
+    trips: Trip[],
+  ): Promise<Trip[]>;
+  public abstract getSearchQuery(cacheKey: string): Promise<Trip[] | null>;
+  public abstract delete(cacheKey: string): Promise<void>;
 }

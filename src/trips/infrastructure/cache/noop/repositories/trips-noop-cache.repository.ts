@@ -11,14 +11,22 @@ import { Trip } from 'src/trips/domain/trip';
 export class NoopCacheTripRepository implements TripCacheRepository {
   private readonly logger = new Logger(NoopCacheTripRepository.name);
 
-  async getTripById(id: string): Promise<Trip | null> {
-    this.logger.debug(`Getting trip by id: ${id}`);
+  async get(cacheKey: string): Promise<Trip | null> {
+    this.logger.debug(`Getting trip by cacheKey: ${cacheKey}`);
     return null;
   }
-  async setTrip(trip: Trip): Promise<void> {
+  async set(cacheKey: string, trip: Trip): Promise<void> {
     this.logger.debug(`Setting trip: ${trip}`);
   }
-  async deleteTrip(id: string): Promise<void> {
-    this.logger.debug(`Deleting trip with id: ${id}`);
+  async setSearchQuery(cacheKey: string, trips: Trip[]): Promise<Trip[]> {
+    this.logger.debug(`Setting trips: ${trips}`);
+    return trips;
+  }
+  async getSearchQuery(cacheKey: string): Promise<Trip[] | null> {
+    this.logger.debug(`Getting trips by cacheKey: ${cacheKey}`);
+    return null;
+  }
+  async delete(cacheKey: string): Promise<void> {
+    this.logger.debug(`Deleting trip with cacheKey: ${cacheKey}`);
   }
 }

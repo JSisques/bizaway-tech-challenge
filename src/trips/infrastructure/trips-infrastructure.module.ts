@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { InMemoryPersistanceModule } from './persistance/in-memory/in-memory-persistance.module';
 import { NoopCacheModule } from './cache/noop/noop-cache.module';
+import { InMemoryCacheModule } from './cache/in-memory/in-memory-cache.module';
 
 @Module({})
 export class TripsInfrastructureModule {
@@ -22,9 +23,9 @@ export class TripsInfrastructureModule {
 
     let cacheModule;
     switch (cacheDriver) {
-      //   case 'in-memory':
-      //     cacheModule = InMemoryCacheModule;
-      //     break;
+      case 'in-memory':
+        cacheModule = InMemoryCacheModule;
+        break;
       case 'noop':
         cacheModule = NoopCacheModule;
         break;

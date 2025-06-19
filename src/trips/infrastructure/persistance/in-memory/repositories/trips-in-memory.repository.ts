@@ -26,13 +26,7 @@ export class TripsInMemoryRepository implements TripRepository {
     }
     return TripsInMemoryMapper.toDomain(entity);
   }
-  public async search(searchTripQuery: SearchTripQuery): Promise<Trip[]> {
-    this.logger.debug(
-      `Searching trips with query: ${JSON.stringify(searchTripQuery)}`,
-    );
-    const entities = Array.from(this.trips.values());
-    return entities.map((entity) => TripsInMemoryMapper.toDomain(entity));
-  }
+
   public async create(trip: Trip): Promise<Trip> {
     this.logger.debug(`Creating trip: ${JSON.stringify(trip)}`);
     const entity = TripsInMemoryMapper.toPersistence(trip);

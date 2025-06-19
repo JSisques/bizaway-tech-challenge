@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ApplicationBootstrapOptions } from 'src/common/interfaces/application-bootstrap-options.interface';
+import { InMemoryCacheModule } from 'src/trips/infrastructure/cache/in-memory/in-memory-cache.module';
 import { NoopCacheModule } from 'src/trips/infrastructure/cache/noop/noop-cache.module';
 import { InMemoryPersistanceModule } from 'src/trips/infrastructure/persistance/in-memory/in-memory-persistance.module';
 
@@ -30,9 +31,9 @@ export class CoreModule {
 
     let cacheModule;
     switch (options.cacheDriver) {
-      //   case 'in-memory':
-      //     cacheModule = InMemoryCacheModule;
-      //     break;
+      case 'in-memory':
+        cacheModule = InMemoryCacheModule;
+        break;
       case 'noop':
         cacheModule = NoopCacheModule;
         break;

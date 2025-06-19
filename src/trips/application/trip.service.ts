@@ -6,6 +6,7 @@ import { CreateTripCommand } from './commands/create-trip.command';
 import { GetTripByIdQuery } from './queries/get-trip-by-id.query';
 import { UpdateTripCommand } from './commands/update-trip.command';
 import { DeleteTripCommand } from './commands/delete-trip.command';
+import { SearchTripQuery } from './queries/search-trip.query';
 
 @Injectable()
 export class TripService {
@@ -20,6 +21,10 @@ export class TripService {
 
   public async findById(getTripByIdQuery: GetTripByIdQuery): Promise<Trip> {
     return await this.queryBus.execute(getTripByIdQuery);
+  }
+
+  public async search(searchTripQuery: SearchTripQuery): Promise<Trip[]> {
+    return await this.queryBus.execute(searchTripQuery);
   }
 
   public async create(createTripCommand: CreateTripCommand): Promise<Trip> {

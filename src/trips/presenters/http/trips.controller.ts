@@ -21,6 +21,7 @@ import { GetTripByIdQuery } from 'src/trips/application/queries/get-trip-by-id.q
 import { UpdateTripCommand } from 'src/trips/application/commands/update-trip.command';
 import { DeleteTripCommand } from 'src/trips/application/commands/delete-trip.command';
 import { DeleteTripDto } from './dto/delete-trip.dto';
+import { SearchTripQuery } from 'src/trips/application/queries/search-trip.query';
 
 //TODO: Implement piscina to work with threads
 
@@ -44,7 +45,9 @@ export class TripController {
     this.logger.log(
       `Searching trips from ${origin} to ${destination}, sorted by ${sortBy}`,
     );
-    throw new NotImplementedException('Search not implemented');
+    return this.tripService.search(
+      new SearchTripQuery(origin, destination, sortBy),
+    );
   }
 
   @Get(':id')
