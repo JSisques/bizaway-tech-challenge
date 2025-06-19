@@ -1,6 +1,6 @@
 import { Logger } from '@nestjs/common';
 import { EventsHandler } from '@nestjs/cqrs';
-import { TripUpdatedEvent } from 'src/trip/domain/events/trip-updated.event';
+import { TripUpdatedEvent } from 'src/trips/domain/events/trip-updated.event';
 
 @EventsHandler(TripUpdatedEvent)
 export class TripUpdatedEventHandler {

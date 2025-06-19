@@ -1,4 +1,4 @@
 export interface ApplicationBootstrapOptions {
-  driver: 'in-memory' | 'mongodb' | 'mysql' | 'postgresql' | 'sqlite';
+  driver: 'in-memory' | 'type-orm';
   cache: 'in-memory' | 'redis' | 'noop';
 }
