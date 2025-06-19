@@ -11,7 +11,13 @@ export class Trip {
     public readonly duration: number,
     public readonly type: TripType,
     public readonly displayName: string,
-  ) {}
+  ) {
+    this.displayName = this.generateDisplayName();
+  }
+
+  private generateDisplayName(): string {
+    return `from ${this.origin.getValue()} to ${this.destination.getValue()} by ${this.type.getValue()}`;
+  }
 
   toPrimitive(): TripPrimitive {
     return new TripPrimitive(
