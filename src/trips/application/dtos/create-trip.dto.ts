@@ -5,6 +5,5 @@ export class CreateTripDto {
     public readonly cost: number,
     public readonly duration: number,
     public readonly type: string,
-    public readonly displayName: string,
   ) {}
 }

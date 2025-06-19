@@ -3,6 +3,8 @@ import { TripPlace } from './value-objects/trip-place';
 import { TripType } from './value-objects/trip-type';
 
 export class Trip {
+  public readonly displayName: string;
+
   constructor(
     public readonly id: string,
     public readonly origin: TripPlace,
@@ -10,7 +12,6 @@ export class Trip {
     public readonly cost: number,
     public readonly duration: number,
     public readonly type: TripType,
-    public readonly displayName: string,
   ) {
     this.displayName = this.generateDisplayName();
   }
@@ -39,7 +40,6 @@ export class Trip {
       trip.cost,
       trip.duration,
       new TripType(trip.type),
-      trip.displayName,
     );
   }
 }

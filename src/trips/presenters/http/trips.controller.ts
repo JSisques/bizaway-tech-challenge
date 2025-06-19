@@ -14,15 +14,26 @@ import {
 import { Trip } from 'src/trips/domain/trip';
 import { CreateTripDto } from './dto/create-trip.dto';
 import { UpdateTripDto } from './dto/update-trip.dto';
+import { TripService } from 'src/trips/application/trip.service';
+import { CreateTripCommand } from 'src/trips/application/commands/create-trip.command';
+import { GetAllTripsQuery } from 'src/trips/application/queries/get-all-trips.query';
+import { GetTripByIdQuery } from 'src/trips/application/queries/get-trip-by-id.query';
+import { UpdateTripCommand } from 'src/trips/application/commands/update-trip.command';
+import { DeleteTripCommand } from 'src/trips/application/commands/delete-trip.command';
+import { DeleteTripDto } from './dto/delete-trip.dto';
+
+//TODO: Implement piscina to work with threads
 
 @Controller('trips')
 export class TripController {
   private readonly logger = new Logger(TripController.name);
 
+  constructor(private readonly tripService: TripService) {}
+
   @Get()
   async getAllTrips(): Promise<Trip[]> {
     this.logger.log('getAllTrips');
-    return [];
+    return this.tripService.findAll(new GetAllTripsQuery());
   }
   @Get('search')
   async search(
@@ -39,24 +50,36 @@ export class TripController {
   @Get(':id')
   async getTripById(@Param('id', ParseUUIDPipe) id: string): Promise<Trip> {
     this.logger.log('getTripById');
-    throw new NotImplementedException('Trip not found');
+    return this.tripService.findById(new GetTripByIdQuery(id));
   }
 
   @Post()
   async create(@Body() createTripDto: CreateTripDto): Promise<Trip> {
     this.logger.log('create');
-    throw new NotImplementedException('Trip not found');
+    return this.tripService.create(
+      new CreateTripCommand({
+        origin: createTripDto.origin,
+        destination: createTripDto.destination,
+        cost: createTripDto.cost,
+        duration: createTripDto.duration,
+        type: createTripDto.type,
+      }),
+    );
   }
 
-  @Put(':id')
+  @Put()
   async update(@Body() updateTripDto: UpdateTripDto): Promise<Trip> {
     this.logger.log('update');
-    throw new NotImplementedException('Trip not found');
+    return this.tripService.update(
+      new UpdateTripCommand({
+        ...updateTripDto,
+      }),
+    );
   }
 
-  @Delete(':id')
-  async delete(@Param('id', ParseUUIDPipe) id: string): Promise<void> {
+  @Delete()
+  async delete(@Body() deleteTripDto: DeleteTripDto): Promise<Trip> {
     this.logger.log('delete');
-    throw new NotImplementedException('Trip not found');
+    return this.tripService.delete(new DeleteTripCommand(deleteTripDto.id));
   }
 }
