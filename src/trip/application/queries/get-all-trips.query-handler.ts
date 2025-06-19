@@ -12,6 +12,8 @@ export class GetAllTripsQueryHandler {
 
   async execute(query: GetAllTripsQuery): Promise<Trip[]> {
     this.logger.debug('Executing GetAllTripsQuery');
+
+    const trips = await this.tripRepository.findAll();
     return this.tripRepository.findAll();
   }
 }
