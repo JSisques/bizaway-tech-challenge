@@ -9,6 +9,7 @@ import { lastValueFrom } from 'rxjs';
 import { TripFactory } from 'src/trips/domain/factories/trip.factory';
 import { randomUUID } from 'crypto';
 import { TripCacheRepository } from '../ports/trip-cache.repository';
+import { TripSortingService } from 'src/trips/domain/services/trip-sorting.service';
 
 @QueryHandler(SearchTripQuery)
 export class SearchQueryHandler implements IQueryHandler<SearchTripQuery> {
@@ -18,6 +19,7 @@ export class SearchQueryHandler implements IQueryHandler<SearchTripQuery> {
     private readonly configService: ConfigService,
     private readonly tripCacheRepository: TripCacheRepository,
     private readonly httpService: HttpService,
+    private readonly tripSortingService: TripSortingService,
   ) {}
 
   async execute(query: SearchTripQuery): Promise<Trip[]> {
@@ -29,7 +31,9 @@ export class SearchQueryHandler implements IQueryHandler<SearchTripQuery> {
     this.logger.debug('Cached trips:', JSON.stringify(cachedTrips));
 
     if (cachedTrips) {
-      this.logger.debug('Returning cached trips');
+      this.logger.debug(
+        `Returning cached trips ${JSON.stringify(cachedTrips)}`,
+      );
       return cachedTrips;
     }
 
@@ -67,9 +71,11 @@ export class SearchQueryHandler implements IQueryHandler<SearchTripQuery> {
       });
     });
 
-    // We cache the trips following search query as id
-    await this.tripCacheRepository.setSearchQuery(cacheKey, trips);
+    const sortedTrips = this.tripSortingService.sortTrips(trips, query.sortBy);
 
-    return trips;
+    // We cache the trips following search query as id
+    await this.tripCacheRepository.setSearchQuery(cacheKey, sortedTrips);
+
+    return sortedTrips;
   }
 }
