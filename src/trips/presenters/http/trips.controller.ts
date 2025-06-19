@@ -6,6 +6,7 @@ import {
   Logger,
   NotImplementedException,
   Param,
+  ParseUUIDPipe,
   Post,
   Put,
   Query,
@@ -19,20 +20,25 @@ export class TripController {
   private readonly logger = new Logger(TripController.name);
 
   @Get()
-  async findAll(): Promise<Trip[]> {
-    this.logger.log('findAll');
+  async getAllTrips(): Promise<Trip[]> {
+    this.logger.log('getAllTrips');
     return [];
+  }
+  @Get('search')
+  async search(
+    @Query('origin') origin: string,
+    @Query('destination') destination: string,
+    @Query('sort_by') sortBy: 'fastest' | 'cheapest',
+  ): Promise<Trip[]> {
+    this.logger.log(
+      `Searching trips from ${origin} to ${destination}, sorted by ${sortBy}`,
+    );
+    throw new NotImplementedException('Search not implemented');
   }
 
   @Get(':id')
-  async findById(@Param('id') id: string): Promise<Trip> {
-    this.logger.log('findById');
-    throw new NotImplementedException('Trip not found');
-  }
-
-  @Get('search')
-  async search(@Query('query') query: string): Promise<Trip[]> {
-    this.logger.log('search');
+  async getTripById(@Param('id', ParseUUIDPipe) id: string): Promise<Trip> {
+    this.logger.log('getTripById');
     throw new NotImplementedException('Trip not found');
   }
 
@@ -43,16 +49,13 @@ export class TripController {
   }
 
   @Put(':id')
-  async update(
-    @Param('id') id: string,
-    @Body() updateTripDto: UpdateTripDto,
-  ): Promise<Trip> {
+  async update(@Body() updateTripDto: UpdateTripDto): Promise<Trip> {
     this.logger.log('update');
     throw new NotImplementedException('Trip not found');
   }
 
   @Delete(':id')
-  async delete(@Param('id') id: string): Promise<void> {
+  async delete(@Param('id', ParseUUIDPipe) id: string): Promise<void> {
     this.logger.log('delete');
     throw new NotImplementedException('Trip not found');
   }
