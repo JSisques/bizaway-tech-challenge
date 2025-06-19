@@ -3,7 +3,8 @@ import { InvalidTripPlaceException } from '../exceptions/invalid-trip-place.exce
 
 export class TripPlace {
   constructor(public readonly value: string) {
-    this.validate(value);
+    this.value = this.format(value);
+    this.validate(this.value);
   }
 
   equals(other: TripPlace): boolean {
@@ -18,5 +19,9 @@ export class TripPlace {
     if (!Object.values(SUPPORTED_PLACES).includes(value)) {
       throw new InvalidTripPlaceException(value);
     }
+  }
+
+  private format(value: string): string {
+    return value.toUpperCase().trim();
   }
 }
