@@ -12,16 +12,16 @@ import {
   Query,
 } from '@nestjs/common';
 import { Trip } from 'src/trips/domain/trip';
-import { CreateTripDto } from './dto/create-trip.dto';
 import { UpdateTripDto } from './dto/update-trip.dto';
 import { TripService } from 'src/trips/application/trip.service';
-import { CreateTripCommand } from 'src/trips/application/commands/create-trip.command';
+import { SaveTripCommand } from 'src/trips/application/commands/save-trip.command';
 import { GetAllTripsQuery } from 'src/trips/application/queries/get-all-trips.query';
 import { GetTripByIdQuery } from 'src/trips/application/queries/get-trip-by-id.query';
 import { UpdateTripCommand } from 'src/trips/application/commands/update-trip.command';
 import { DeleteTripCommand } from 'src/trips/application/commands/delete-trip.command';
 import { DeleteTripDto } from './dto/delete-trip.dto';
 import { SearchTripQuery } from 'src/trips/application/queries/search-trip.query';
+import { SaveTripDto } from './dto/save-trip.dto';
 
 //TODO: Implement piscina to work with threads
 
@@ -57,15 +57,15 @@ export class TripController {
   }
 
   @Post()
-  async create(@Body() createTripDto: CreateTripDto): Promise<Trip> {
-    this.logger.log('create');
-    return this.tripService.create(
-      new CreateTripCommand({
-        origin: createTripDto.origin,
-        destination: createTripDto.destination,
-        cost: createTripDto.cost,
-        duration: createTripDto.duration,
-        type: createTripDto.type,
+  async save(@Body() saveTripDto: SaveTripDto): Promise<Trip> {
+    this.logger.log(`Saving trip with data: ${JSON.stringify(saveTripDto)}`);
+    return this.tripService.save(
+      new SaveTripCommand({
+        origin: saveTripDto.origin,
+        destination: saveTripDto.destination,
+        cost: saveTripDto.cost,
+        duration: saveTripDto.duration,
+        type: saveTripDto.type,
       }),
     );
   }

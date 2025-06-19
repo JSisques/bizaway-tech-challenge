@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { Trip } from '../domain/trip';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { GetAllTripsQuery } from './queries/get-all-trips.query';
-import { CreateTripCommand } from './commands/create-trip.command';
+import { SaveTripCommand } from './commands/save-trip.command';
 import { GetTripByIdQuery } from './queries/get-trip-by-id.query';
 import { UpdateTripCommand } from './commands/update-trip.command';
 import { DeleteTripCommand } from './commands/delete-trip.command';
@@ -27,8 +27,8 @@ export class TripService {
     return await this.queryBus.execute(searchTripQuery);
   }
 
-  public async create(createTripCommand: CreateTripCommand): Promise<Trip> {
-    return await this.commandBus.execute(createTripCommand);
+  public async save(saveTripCommand: SaveTripCommand): Promise<Trip> {
+    return await this.commandBus.execute(saveTripCommand);
   }
 
   public async update(updateTripCommand: UpdateTripCommand): Promise<Trip> {

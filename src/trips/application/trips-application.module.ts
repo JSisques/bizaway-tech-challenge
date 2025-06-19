@@ -3,7 +3,7 @@ import { SearchQueryHandler } from './queries/search-trip.query-handler';
 import { TripFactory } from '../domain/factories/trip.factory';
 import { TripService } from './trip.service';
 import { TripController } from '../presenters/http/trips.controller';
-import { CreateTripCommandHandler } from './commands/create-trip.command-handler';
+import { SaveTripCommandHandler } from './commands/save-trip.command-handler';
 import { UpdateTripCommandHandler } from './commands/update-trip.command-handler';
 import { DeleteTripCommandHandler } from './commands/delete-trip.command-handler';
 import { GetAllTripsQueryHandler } from './queries/get-all-trips.query-handler';
@@ -22,7 +22,7 @@ import { TripsDomainModule } from '../domain/trips-domain.module';
   controllers: [TripController],
   providers: [
     TripService,
-    CreateTripCommandHandler,
+    SaveTripCommandHandler,
     UpdateTripCommandHandler,
     DeleteTripCommandHandler,
     GetAllTripsQueryHandler,

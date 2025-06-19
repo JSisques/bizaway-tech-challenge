@@ -1,4 +1,4 @@
-export class CreateTripDto {
+export class SaveTripDto {
   constructor(
     public readonly origin: string,
     public readonly destination: string,

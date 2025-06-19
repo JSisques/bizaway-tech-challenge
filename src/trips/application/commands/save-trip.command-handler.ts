@@ -1,17 +1,16 @@
 import { CommandHandler, EventBus, ICommandHandler } from '@nestjs/cqrs';
-import { CreateTripCommand } from './create-trip.command';
+import { SaveTripCommand } from './save-trip.command';
 import { TripRepository } from '../ports/trip.repository';
 import { Logger } from '@nestjs/common';
 import { TripFactory } from 'src/trips/domain/factories/trip.factory';
-import { TripCreatedEvent } from 'src/trips/domain/events/trip-created.event';
-import { randomUUID } from 'crypto';
+import { TripSavedEvent } from 'src/trips/domain/events/trip-saved.event';
 import { Trip } from 'src/trips/domain/trip';
 
-@CommandHandler(CreateTripCommand)
-export class CreateTripCommandHandler
-  implements ICommandHandler<CreateTripCommand>
+@CommandHandler(SaveTripCommand)
+export class SaveTripCommandHandler
+  implements ICommandHandler<SaveTripCommand>
 {
-  private readonly logger = new Logger(CreateTripCommandHandler.name);
+  private readonly logger = new Logger(SaveTripCommandHandler.name);
 
   constructor(
     private readonly tripFactory: TripFactory,
@@ -19,8 +18,8 @@ export class CreateTripCommandHandler
     private readonly eventBus: EventBus,
   ) {}
 
-  async execute(command: CreateTripCommand): Promise<Trip> {
-    this.logger.debug('Executing CreateTripCommand');
+  async execute(command: SaveTripCommand): Promise<Trip> {
+    this.logger.debug('Executing SaveTripCommand');
     const trip = this.tripFactory.create(
       command.trip.origin,
       command.trip.destination,
@@ -28,8 +27,8 @@ export class CreateTripCommandHandler
       command.trip.duration,
       command.trip.type,
     );
-    await this.tripRepository.create(trip);
-    this.eventBus.publish(new TripCreatedEvent(trip));
+    await this.tripRepository.save(trip);
+    this.eventBus.publish(new TripSavedEvent(trip));
 
     return trip;
   }

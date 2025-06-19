@@ -1,5 +1,5 @@
 import { Trip } from '../trip';
 
-export class TripCreatedEvent {
+export class TripSavedEvent {
   constructor(public readonly trip: Trip) {}
 }

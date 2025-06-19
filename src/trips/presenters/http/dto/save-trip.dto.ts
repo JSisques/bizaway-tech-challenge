@@ -1,6 +1,6 @@
 import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
 
-export class CreateTripDto {
+export class SaveTripDto {
   @IsString()
   @IsNotEmpty()
   origin: string;

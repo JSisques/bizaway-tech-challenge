@@ -27,7 +27,7 @@ export class TripsInMemoryRepository implements TripRepository {
     return TripsInMemoryMapper.toDomain(entity);
   }
 
-  public async create(trip: Trip): Promise<Trip> {
+  public async save(trip: Trip): Promise<Trip> {
     this.logger.debug(`Creating trip: ${JSON.stringify(trip)}`);
     const entity = TripsInMemoryMapper.toPersistence(trip);
     this.trips.set(trip.id, entity);
