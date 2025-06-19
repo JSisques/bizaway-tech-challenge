@@ -1,11 +1,11 @@
-import { QueryHandler } from '@nestjs/cqrs';
+import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
 import { SearchTripQuery } from './search-trip.query';
 import { TripRepository } from '../ports/trip.repository';
 import { Trip } from 'src/trips/domain/trip';
 import { Logger } from '@nestjs/common';
 
 @QueryHandler(SearchTripQuery)
-export class SearchQueryHandler {
+export class SearchQueryHandler implements IQueryHandler<SearchTripQuery> {
   private readonly logger = new Logger(SearchQueryHandler.name);
 
   constructor(private readonly tripRepository: TripRepository) {}

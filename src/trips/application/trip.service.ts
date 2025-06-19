@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
 import { Trip } from '../domain/trip';
-import { TripRepository } from './ports/trip.repository';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { GetAllTripsQuery } from './queries/get-all-trips.query';
 import { CreateTripCommand } from './commands/create-trip.command';

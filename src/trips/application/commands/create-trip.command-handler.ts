@@ -1,10 +1,12 @@
-import { CommandHandler, EventBus } from '@nestjs/cqrs';
+import { CommandHandler, EventBus, ICommandHandler } from '@nestjs/cqrs';
 import { CreateTripCommand } from './create-trip.command';
 import { TripRepository } from '../ports/trip.repository';
 import { Logger } from '@nestjs/common';
 
 @CommandHandler(CreateTripCommand)
-export class CreateTripCommandHandler {
+export class CreateTripCommandHandler
+  implements ICommandHandler<CreateTripCommand>
+{
   private readonly logger = new Logger(CreateTripCommandHandler.name);
 
   constructor(

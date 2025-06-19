@@ -19,7 +19,7 @@ export class Trip {
     return `from ${this.origin.getValue()} to ${this.destination.getValue()} by ${this.type.getValue()}`;
   }
 
-  toPrimitive(): TripPrimitive {
+  toPrimitives(): TripPrimitive {
     return new TripPrimitive(
       this.id,
       this.origin.getValue(),
@@ -31,7 +31,7 @@ export class Trip {
     );
   }
 
-  static fromPrimitive(trip: TripPrimitive): Trip {
+  static fromPrimitives(trip: TripPrimitive): Trip {
     return new Trip(
       trip.id,
       new TripPlace(trip.origin),

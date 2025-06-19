@@ -1,4 +1,4 @@
 export interface ApplicationBootstrapOptions {
-  driver: 'in-memory' | 'type-orm';
-  cache: 'in-memory' | 'redis' | 'noop';
+  databaseDriver: 'in-memory' | 'type-orm';
+  cacheDriver: 'in-memory' | 'redis' | 'noop';
 }
