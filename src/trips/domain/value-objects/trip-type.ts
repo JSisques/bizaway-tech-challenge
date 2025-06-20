@@ -1,6 +1,9 @@
+import { InvalidTripTypeException } from '../exceptions/invalid-trip-type.exception';
+
 export class TripType {
   constructor(public readonly value: string) {
     this.value = this.format(value);
+    this.validate();
   }
 
   equals(other: TripType): boolean {
@@ -9,6 +12,12 @@ export class TripType {
 
   getValue(): string {
     return this.value;
+  }
+
+  private validate(): void {
+    if (typeof this.value !== 'string') {
+      throw new InvalidTripTypeException('Trip type must be a string');
+    }
   }
 
   private format(value: string): string {

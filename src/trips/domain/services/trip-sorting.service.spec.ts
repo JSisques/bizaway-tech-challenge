@@ -38,6 +38,13 @@ describe('TripSortingService', () => {
   });
 
   describe('sortTrips', () => {
+    it('should return same trip when only one trip is provided', () => {
+      const singleTrip = createTrip(100, 5);
+      const result = service.sortTrips([singleTrip], 'fastest');
+      expect(result).toHaveLength(1);
+      expect(result[0]).toBe(singleTrip);
+    });
+
     it('should sort by fastest correctly', () => {
       const trips = [
         createTrip(100, 5), // More slow
@@ -76,7 +83,7 @@ describe('TripSortingService', () => {
     });
 
     it('should throw exception for invalid strategy', () => {
-      const trips = [createTrip(100, 5)];
+      const trips = [createTrip(200, 2), createTrip(100, 5)];
 
       expect(() => service.sortTrips(trips, 'invalid' as SortStrategy)).toThrow(
         InvalidSortingStrategyException,
