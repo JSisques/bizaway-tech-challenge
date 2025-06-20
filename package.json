@@ -72,7 +72,18 @@
       "^.+\\.(t|j)s$": "ts-jest"
     },
     "collectCoverageFrom": [
-      "src/**/*.(t|j)s"
+      "src/**/*.(t|j)s",
+      "!**/node_modules/**",
+      "!**/*.spec.ts",
+      "!**/*.e2e-spec.ts",
+      "!src/main.ts",
+      "!src/**/*.module.ts",
+      "!src/**/*.dto.ts",
+      "!src/**/*.interface.ts",
+      "!src/**/*.event.ts",
+      "!src/**/*.exception.ts",
+      "!src/**/*.primitive.ts",
+      "!src/**/*.constant.ts"
     ],
     "coverageDirectory": "coverage",
     "testEnvironment": "node",
