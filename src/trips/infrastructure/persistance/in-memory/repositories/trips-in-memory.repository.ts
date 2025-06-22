@@ -1,6 +1,5 @@
 import { Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { TripRepository } from 'src/trips/application/ports/trip.repository';
-import { SearchTripQuery } from 'src/trips/application/queries/search-trip.query';
 import { Trip } from 'src/trips/domain/trip';
 import { TripsInMemoryMapper } from '../mapper/trips-in-memory.mapper';
 import { TripInMemoryEntity } from '../entities/trip-in-memory.entity';

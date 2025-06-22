@@ -7,7 +7,10 @@ export class TripUpdatedEventHandler {
   private readonly logger = new Logger(TripUpdatedEventHandler.name);
 
   async handle(event: TripUpdatedEvent): Promise<void> {
-    this.logger.debug('Executing TripUpdatedEvent');
+    this.logger.debug(
+      `Executing TripUpdatedEvent for trip ${event.trip.id}`,
+      event.trip,
+    );
 
     /**
      * Here we could implement some logic after a trip is updated

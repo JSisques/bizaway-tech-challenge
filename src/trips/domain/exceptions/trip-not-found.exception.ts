@@ -1,8 +1,10 @@
-import { NotFoundException } from '@nestjs/common';
+import { DomainException } from 'src/shared/domain/exceptions/domain.exception';
 
-export class TripNotFoundException extends NotFoundException {
-  constructor(message: string) {
-    super(message);
-    this.name = 'TripNotFoundException';
+/**
+ * Exception thrown when a trip is not found
+ */
+export class TripNotFoundException extends DomainException {
+  constructor(id: string) {
+    super(`Trip with id ${id} not found`);
   }
 }

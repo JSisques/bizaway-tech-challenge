@@ -7,7 +7,10 @@ export class TripDeletedEventHandler {
   private readonly logger = new Logger(TripDeletedEventHandler.name);
 
   async handle(event: TripDeletedEvent): Promise<void> {
-    this.logger.debug('Executing TripDeletedEvent');
+    this.logger.debug(
+      `Executing TripDeletedEvent for trip ${event.trip.id}`,
+      event.trip,
+    );
 
     /**
      * Here we could implement some logic after a trip is deleted

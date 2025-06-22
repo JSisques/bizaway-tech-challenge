@@ -1,6 +1,5 @@
 import { DynamicModule, Module, Type } from '@nestjs/common';
 import { SearchQueryHandler } from './queries/search-trip.query-handler';
-import { TripFactory } from '../domain/factories/trip.factory';
 import { TripService } from './trip.service';
 import { TripController } from '../presenters/http/trips.controller';
 import { SaveTripCommandHandler } from './commands/save-trip.command-handler';

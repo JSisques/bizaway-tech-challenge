@@ -1,5 +1,4 @@
 import { Trip } from 'src/trips/domain/trip';
-import { SearchTripQuery } from '../queries/search-trip.query';
 
 export abstract class TripRepository {
   public abstract findAll(): Promise<Trip[]>;

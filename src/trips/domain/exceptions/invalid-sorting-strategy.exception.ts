@@ -1,8 +1,10 @@
-import { BadRequestException } from '@nestjs/common';
+import { DomainException } from 'src/shared/domain/exceptions/domain.exception';
 
-export class InvalidSortingStrategyException extends Error {
+/**
+ * Exception thrown when an invalid sorting strategy is provided
+ */
+export class InvalidSortingStrategyException extends DomainException {
   constructor(strategy: string) {
     super(`Invalid sorting strategy: ${strategy}`);
-    this.name = InvalidSortingStrategyException.name;
   }
 }

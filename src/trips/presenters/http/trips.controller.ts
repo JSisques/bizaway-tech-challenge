@@ -4,14 +4,12 @@ import {
   Delete,
   Get,
   Logger,
-  NotImplementedException,
   Param,
   ParseUUIDPipe,
   Post,
   Put,
   Query,
 } from '@nestjs/common';
-import { Trip } from 'src/trips/domain/trip';
 import { UpdateTripDto } from './dto/update-trip.dto';
 import { TripService } from 'src/trips/application/trip.service';
 import { SaveTripCommand } from 'src/trips/application/commands/save-trip.command';

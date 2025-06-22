@@ -1,13 +1,10 @@
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
 import { SearchTripQuery } from './search-trip.query';
-import { TripRepository } from '../ports/trip.repository';
 import { Trip } from 'src/trips/domain/trip';
 import { Logger } from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
 import { ConfigService } from '@nestjs/config';
 import { lastValueFrom } from 'rxjs';
-import { TripFactory } from 'src/trips/domain/factories/trip.factory';
-import { randomUUID } from 'crypto';
 import { TripCacheRepository } from '../ports/trip-cache.repository';
 import { TripSortingService } from 'src/trips/domain/services/trip-sorting.service';
 
