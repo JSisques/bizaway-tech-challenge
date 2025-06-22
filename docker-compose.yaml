@@ -2,6 +2,42 @@ version: '3.8'
 name: bizaway-tech-challenge-stack
 
 services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: bizaway-app
+    hostname: bizaway-app
+    restart: unless-stopped
+    ports:
+      - '3000:3000'
+    environment:
+      - NODE_ENV=production
+      - PORT=${PORT}
+      - DATABASE_DRIVER=${DATABASE_DRIVER}
+      - CACHE_DRIVER=${CACHE_DRIVER}
+      - API_URL=${API_URL}
+      - API_KEY=${API_KEY}
+      - POSTGRES_HOST=bizaway-database
+      - POSTGRES_PORT=${POSTGRES_PORT}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
+      - TYPE_ORM_AUTO_LOAD_ENTITIES=true
+      - TYPE_ORM_SYNCHRONIZE=true
+      - REDIS_HOST=bizaway-cache
+      - REDIS_PORT=${REDIS_PORT}
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
+      - REDIS_USERNAME=${REDIS_USERNAME}
+      - REDIS_TTL=${REDIS_TTL}
+    volumes:
+      - app-data:/usr/src/app
+    networks:
+      - bizaway-network
+    depends_on:
+      - database
+      - cache
+
   database:
     image: postgres
     container_name: bizaway-database
@@ -41,4 +77,6 @@ volumes:
   postgres-data:
     driver: local
   redis-data:
+    driver: local
+  app-data:
     driver: local
