@@ -3,6 +3,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ApplicationBootstrapOptions } from 'src/common/interfaces/application-bootstrap-options.interface';
 import { InMemoryCacheModule } from 'src/trips/infrastructure/cache/in-memory/in-memory-cache.module';
 import { NoopCacheModule } from 'src/trips/infrastructure/cache/noop/noop-cache.module';
+import { RedisCacheModule } from 'src/trips/infrastructure/cache/redis/redis-cache.module';
 import { InMemoryPersistanceModule } from 'src/trips/infrastructure/persistance/in-memory/in-memory-persistance.module';
 
 @Module({})
@@ -37,9 +38,9 @@ export class CoreModule {
       case 'noop':
         cacheModule = NoopCacheModule;
         break;
-      //   case 'redis':
-      //     cacheModule = RedisCacheModule;
-      //     break;
+      case 'redis':
+        cacheModule = RedisCacheModule;
+        break;
       default:
         throw new Error(`Unsupported cache driver: ${options.cacheDriver}`);
     }

@@ -3,6 +3,7 @@ import { InMemoryPersistanceModule } from './persistance/in-memory/in-memory-per
 import { NoopCacheModule } from './cache/noop/noop-cache.module';
 import { InMemoryCacheModule } from './cache/in-memory/in-memory-cache.module';
 import { TypeOrmPersistanceModule } from './persistance/type-orm/type-orm-persistance.module';
+import { RedisCacheModule } from './cache/redis/redis-cache.module';
 
 @Module({})
 export class TripsInfrastructureModule {
@@ -30,9 +31,9 @@ export class TripsInfrastructureModule {
       case 'noop':
         cacheModule = NoopCacheModule;
         break;
-      //   case 'redis':
-      //     cacheModule = RedisCacheModule;
-      //     break;
+      case 'redis':
+        cacheModule = RedisCacheModule;
+        break;
       default:
         cacheModule = NoopCacheModule;
     }

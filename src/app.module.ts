@@ -7,6 +7,7 @@ import { CoreModule } from './core/core.module';
 import { TripsInfrastructureModule } from './trips/infrastructure/trips-infrastructure.module';
 import { CqrsModule } from '@nestjs/cqrs';
 import { TripsApplicationModule } from './trips/application/trips-application.module';
+import { SharedModule } from './shared/shared.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { TripsApplicationModule } from './trips/application/trips-application.mo
       envFilePath: '.env',
     }),
     CoreModule,
+    SharedModule,
   ],
   controllers: [AppController],
   providers: [AppService],
