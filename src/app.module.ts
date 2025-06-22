@@ -8,6 +8,8 @@ import { TripsInfrastructureModule } from './trips/infrastructure/trips-infrastr
 import { CqrsModule } from '@nestjs/cqrs';
 import { TripsApplicationModule } from './trips/application/trips-application.module';
 import { SharedModule } from './shared/shared.module';
+import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
+import { APP_GUARD } from '@nestjs/core';
 
 @Module({
   imports: [
@@ -16,11 +18,25 @@ import { SharedModule } from './shared/shared.module';
       isGlobal: true,
       envFilePath: '.env',
     }),
+    ThrottlerModule.forRoot({
+      throttlers: [
+        {
+          ttl: 10000,
+          limit: 20,
+        },
+      ],
+    }),
     CoreModule,
     SharedModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    {
+      provide: APP_GUARD,
+      useClass: ThrottlerGuard,
+    },
+  ],
 })
 export class AppModule {
   static register(options: ApplicationBootstrapOptions) {

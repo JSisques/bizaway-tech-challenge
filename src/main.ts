@@ -3,7 +3,6 @@ import { AppModule } from './app.module';
 import { Logger, LogLevel, ValidationPipe } from '@nestjs/common';
 import { ApplicationBootstrapOptions } from './common/interfaces/application-bootstrap-options.interface';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import { config } from 'process';
 
 async function bootstrap() {
   const logger = new Logger('Main');
