@@ -1,3 +1,4 @@
+import { InvalidTripException } from './exceptions/invalid-trip-exception';
 import { TripPrimitive } from './primitives/trip.primitive';
 import { TripPlace } from './value-objects/trip-place';
 import { TripType } from './value-objects/trip-type';
@@ -68,5 +69,21 @@ export class Trip {
       trip.duration,
       new TripType(trip.type),
     );
+  }
+
+  private validate(): void {
+    if (this.origin.getValue() === this.destination.getValue()) {
+      throw new InvalidTripException(
+        'Origin and destination cannot be the same',
+      );
+    }
+
+    if (this.cost <= 0) {
+      throw new InvalidTripException('Cost must be greater than 0');
+    }
+
+    if (this.duration <= 0) {
+      throw new InvalidTripException('Duration must be greater than 0');
+    }
   }
 }

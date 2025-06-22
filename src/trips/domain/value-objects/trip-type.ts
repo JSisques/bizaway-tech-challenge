@@ -18,6 +18,9 @@ export class TripType {
     if (typeof this.value !== 'string') {
       throw new InvalidTripTypeException('Trip type must be a string');
     }
+    if (this.value === undefined || this.value === '') {
+      throw new InvalidTripTypeException('Trip type is required');
+    }
   }
 
   private format(value: string): string {
