@@ -82,8 +82,8 @@ describe('UpdateTripCommandHandler', () => {
       // 2. Check if repository.update was called with the updated trip
       expect(tripRepositoryMock.update).toHaveBeenCalledWith(
         expect.objectContaining({
-          id: { value: '123-abc' },
-          cost: { value: 600 },
+          id: '123-abc',
+          cost: 600,
         }),
       );
       expect(tripRepositoryMock.update).toHaveBeenCalledTimes(1);

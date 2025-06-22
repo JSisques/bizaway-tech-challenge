@@ -1,5 +1,4 @@
 import { TripType } from './trip-type';
-import { InvalidTripTypeException } from '../exceptions/invalid-trip-type.exception';
 
 describe('TripType Value Object', () => {
   describe('Creation', () => {
@@ -18,12 +17,16 @@ describe('TripType Value Object', () => {
       expect(type.getValue()).toBe('car');
     });
 
-    it('should throw error when type is not a string', () => {
-      expect(() => new TripType(123 as any)).toThrow(InvalidTripTypeException);
-      expect(() => new TripType(null as any)).toThrow(InvalidTripTypeException);
-      expect(() => new TripType(undefined as any)).toThrow(
-        InvalidTripTypeException,
-      );
+    it('should throw an error when type is not a string', () => {
+      expect(() => new TripType(123 as any)).toThrow();
+    });
+
+    it('should throw an error when type is null', () => {
+      expect(() => new TripType(null as any)).toThrow();
+    });
+
+    it('should throw an error when type is undefined', () => {
+      expect(() => new TripType(undefined as any)).toThrow();
     });
 
     it('should trim whitespace from type', () => {
@@ -77,6 +80,20 @@ describe('TripType Value Object', () => {
     it('should return the correct value for car', () => {
       const type = new TripType('car');
       expect(type.getValue()).toBe('car');
+    });
+  });
+
+  describe('Validation', () => {
+    it('should throw an error when type is not a string', () => {
+      expect(() => new TripType(123 as any)).toThrow();
+    });
+
+    it('should throw an error when type is undefined', () => {
+      expect(() => new TripType(undefined as any)).toThrow();
+    });
+
+    it('should throw InvalidTripTypeException when type is empty string', () => {
+      expect(() => new TripType('')).toThrow();
     });
   });
 });

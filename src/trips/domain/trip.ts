@@ -28,6 +28,7 @@ export class Trip {
     public readonly type: TripType,
   ) {
     this.displayName = this.generateDisplayName();
+    this.validate();
   }
 
   /**

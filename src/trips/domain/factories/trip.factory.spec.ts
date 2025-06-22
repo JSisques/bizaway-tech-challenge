@@ -55,11 +55,17 @@ describe('TripFactory', () => {
   });
 
   it('should accept all supported places as origin and destination', () => {
-    Object.values(SUPPORTED_PLACES).forEach((place) => {
+    const supportedPlaceCodes = Object.keys(SUPPORTED_PLACES).filter((key) =>
+      isNaN(Number(key)),
+    );
+
+    for (let i = 0; i < supportedPlaceCodes.length - 1; i++) {
+      const origin = supportedPlaceCodes[i];
+      const destination = supportedPlaceCodes[i + 1];
       expect(() =>
-        factory.create(place as string, place as string, 100, 5, 'flight'),
+        factory.create(origin, destination, 100, 5, 'flight'),
       ).not.toThrow();
-    });
+    }
   });
 
   it('should create a Trip with different types', () => {

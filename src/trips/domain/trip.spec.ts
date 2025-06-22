@@ -2,6 +2,7 @@ import { randomUUID } from 'crypto';
 import { Trip } from './trip';
 import { TripPlace } from './value-objects/trip-place';
 import { TripType } from './value-objects/trip-type';
+import { InvalidTripException } from './exceptions/invalid-trip-exception';
 
 describe('Trip Domain Entity', () => {
   const validTripData = {
@@ -86,6 +87,78 @@ describe('Trip Domain Entity', () => {
       expect(trip.id).toBe(validTripData.id);
       expect(trip.origin.getValue()).toBe(validTripData.origin);
       expect(trip.destination.getValue()).toBe(validTripData.destination);
+    });
+  });
+
+  describe('Validation', () => {
+    it('should throw InvalidTripException when origin and destination are the same', () => {
+      expect(
+        () =>
+          new Trip(
+            validTripData.id,
+            new TripPlace('SYD'),
+            new TripPlace('SYD'),
+            validTripData.cost,
+            validTripData.duration,
+            new TripType(validTripData.type),
+          ),
+      ).toThrow(InvalidTripException);
+    });
+
+    it('should throw InvalidTripException when cost is zero', () => {
+      expect(
+        () =>
+          new Trip(
+            validTripData.id,
+            new TripPlace(validTripData.origin),
+            new TripPlace(validTripData.destination),
+            0,
+            validTripData.duration,
+            new TripType(validTripData.type),
+          ),
+      ).toThrow(InvalidTripException);
+    });
+
+    it('should throw InvalidTripException when cost is negative', () => {
+      expect(
+        () =>
+          new Trip(
+            validTripData.id,
+            new TripPlace(validTripData.origin),
+            new TripPlace(validTripData.destination),
+            -100,
+            validTripData.duration,
+            new TripType(validTripData.type),
+          ),
+      ).toThrow(InvalidTripException);
+    });
+
+    it('should throw InvalidTripException when duration is zero', () => {
+      expect(
+        () =>
+          new Trip(
+            validTripData.id,
+            new TripPlace(validTripData.origin),
+            new TripPlace(validTripData.destination),
+            validTripData.cost,
+            0,
+            new TripType(validTripData.type),
+          ),
+      ).toThrow(InvalidTripException);
+    });
+
+    it('should throw InvalidTripException when duration is negative', () => {
+      expect(
+        () =>
+          new Trip(
+            validTripData.id,
+            new TripPlace(validTripData.origin),
+            new TripPlace(validTripData.destination),
+            validTripData.cost,
+            -60,
+            new TripType(validTripData.type),
+          ),
+      ).toThrow(InvalidTripException);
     });
   });
 });

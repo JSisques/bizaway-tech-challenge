@@ -14,8 +14,11 @@ describe('TripPlace Value Object', () => {
     });
 
     it('should accept all supported places', () => {
-      Object.values(SUPPORTED_PLACES).forEach((placeCode) => {
-        expect(() => new TripPlace(placeCode as string)).not.toThrow();
+      const supportedPlaceCodes = Object.keys(SUPPORTED_PLACES).filter((key) =>
+        isNaN(Number(key)),
+      );
+      supportedPlaceCodes.forEach((placeCode) => {
+        expect(() => new TripPlace(placeCode)).not.toThrow();
       });
     });
   });
