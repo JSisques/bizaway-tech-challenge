@@ -24,17 +24,9 @@ const mockTrip = Trip.fromPrimitives(mockTripPrimitive);
 
 describe('SearchQueryHandler', () => {
   let handler: SearchQueryHandler;
-  let configService: ConfigService;
-  let tripCacheRepository: TripCacheRepository;
-  let httpService: HttpService;
-  let tripSortingService: TripSortingService;
 
   const mockConfigService = {
-    get: jest.fn((key: string) => {
-      if (key === 'API_URL') return 'http://test-api.com';
-      if (key === 'API_KEY') return 'test-key';
-      return null;
-    }),
+    get: jest.fn(),
   };
 
   const mockTripCacheRepository = {
@@ -64,10 +56,6 @@ describe('SearchQueryHandler', () => {
       .compile();
 
     handler = module.get<SearchQueryHandler>(SearchQueryHandler);
-    configService = module.get<ConfigService>(ConfigService);
-    tripCacheRepository = module.get<TripCacheRepository>(TripCacheRepository);
-    httpService = module.get<HttpService>(HttpService);
-    tripSortingService = module.get<TripSortingService>(TripSortingService);
 
     jest.clearAllMocks();
   });
