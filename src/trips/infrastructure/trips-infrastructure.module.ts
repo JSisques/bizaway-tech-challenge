@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { InMemoryPersistanceModule } from './persistance/in-memory/in-memory-persistance.module';
 import { NoopCacheModule } from './cache/noop/noop-cache.module';
 import { InMemoryCacheModule } from './cache/in-memory/in-memory-cache.module';
+import { TypeOrmPersistanceModule } from './persistance/type-orm/type-orm-persistance.module';
 
 @Module({})
 export class TripsInfrastructureModule {
@@ -14,9 +15,9 @@ export class TripsInfrastructureModule {
       case 'in-memory':
         persistenceModule = InMemoryPersistanceModule;
         break;
-      //   case 'type-orm':
-      //     persistenceModule = TypeORMPersistanceModule;
-      //     break;
+      case 'type-orm':
+        persistenceModule = TypeOrmPersistanceModule;
+        break;
       default:
         persistenceModule = InMemoryPersistanceModule;
     }

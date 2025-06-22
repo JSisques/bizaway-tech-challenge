@@ -1,0 +1,44 @@
+version: '3.8'
+name: bizaway-tech-challenge-stack
+
+services:
+  database:
+    image: postgres
+    container_name: bizaway-database
+    hostname: bizaway-database
+    restart: unless-stopped
+    ports:
+      - '5432:5432'
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - bizaway-network
+
+  cache:
+    image: redis
+    container_name: bizaway-cache
+    hostname: bizaway-cache
+    restart: unless-stopped
+    ports:
+      - '6379:6379'
+    environment:
+      REDIS_PASSWORD: ${REDIS_PASSWORD}
+      REDIS_USERNAME: ${REDIS_USERNAME}
+    networks:
+      - bizaway-network
+    volumes:
+      - redis-data:/data
+
+networks:
+  bizaway-network:
+    driver: bridge
+
+volumes:
+  postgres-data:
+    driver: local
+  redis-data:
+    driver: local
