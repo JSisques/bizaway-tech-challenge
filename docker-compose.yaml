@@ -14,8 +14,8 @@ services:
     environment:
       - NODE_ENV=production
       - PORT=${PORT}
-      - DATABASE_DRIVER=${DATABASE_DRIVER}
-      - CACHE_DRIVER=${CACHE_DRIVER}
+      - DATABASE_DRIVER=type-orm
+      - CACHE_DRIVER=redis
       - API_URL=${API_URL}
       - API_KEY=${API_KEY}
       - POSTGRES_HOST=bizaway-database

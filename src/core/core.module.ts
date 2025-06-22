@@ -23,7 +23,7 @@ export class CoreModule {
           password: process.env.POSTGRES_PASSWORD,
           database: process.env.POSTGRES_DB,
           autoLoadEntities: process.env.TYPE_ORM_AUTO_LOAD_ENTITIES === 'true',
-          synchronize: process.env.TYPE_ORM_SYNCHRONIZE === 'true',
+          synchronize: process.env.TYPE_ORM_SYNCHRONIZE === 'false',
         });
         break;
       default:
