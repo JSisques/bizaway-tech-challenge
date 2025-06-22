@@ -33,6 +33,10 @@ describe('TripController', () => {
     delete: jest.fn(),
   };
 
+  const mockTripDomainEntity = {
+    toPrimitives: () => mockTrip,
+  };
+
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [TripController],
@@ -61,7 +65,7 @@ describe('TripController', () => {
   describe('getAllTrips', () => {
     it('should return an array of trips', async () => {
       const trips = [mockTrip];
-      mockTripService.findAll.mockResolvedValue(trips);
+      mockTripService.findAll.mockResolvedValue([mockTripDomainEntity]);
 
       const result = await controller.getAllTrips();
 
@@ -76,7 +80,7 @@ describe('TripController', () => {
       const origin = 'MAD';
       const destination = 'BCN';
       const sortBy = 'fastest';
-      mockTripService.search.mockResolvedValue(trips);
+      mockTripService.search.mockResolvedValue([mockTripDomainEntity]);
 
       const result = await controller.search(origin, destination, sortBy);
 
@@ -87,7 +91,7 @@ describe('TripController', () => {
 
   describe('getTripById', () => {
     it('should return a single trip when a valid ID is provided', async () => {
-      mockTripService.findById.mockResolvedValue(mockTrip);
+      mockTripService.findById.mockResolvedValue(mockTripDomainEntity);
 
       const result = await controller.getTripById(mockTripId);
 
@@ -116,7 +120,7 @@ describe('TripController', () => {
         duration: 120,
         type: 'train',
       };
-      mockTripService.save.mockResolvedValue(mockTrip);
+      mockTripService.save.mockResolvedValue(mockTripDomainEntity);
 
       const result = await controller.save(saveTripDto);
 
@@ -132,7 +136,9 @@ describe('TripController', () => {
         cost: 150,
       };
       const updatedTrip = { ...mockTrip, cost: 150 };
-      mockTripService.update.mockResolvedValue(updatedTrip);
+      mockTripService.update.mockResolvedValue({
+        toPrimitives: () => updatedTrip,
+      });
 
       const result = await controller.update(updateTripDto);
 
@@ -157,7 +163,7 @@ describe('TripController', () => {
   describe('delete', () => {
     it('should delete and return the trip', async () => {
       const deleteTripDto: DeleteTripDto = { id: mockTripId };
-      mockTripService.delete.mockResolvedValue(mockTrip);
+      mockTripService.delete.mockResolvedValue(mockTripDomainEntity);
 
       const result = await controller.delete(deleteTripDto);
 
