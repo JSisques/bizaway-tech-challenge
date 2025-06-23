@@ -37,7 +37,6 @@ export class SearchQueryHandler implements IQueryHandler<SearchTripQuery> {
     const apiUrl = this.configService.get('API_URL');
     const apiKey = this.configService.get('API_KEY');
 
-    //TODO: Refactor this to use a proper error handling
     if (!apiUrl) throw new Error('API URL is not set');
     if (!apiKey) throw new Error('API Key is not set');
 

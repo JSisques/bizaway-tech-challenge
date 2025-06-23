@@ -11,7 +11,6 @@ import { UpdateTripDto } from 'src/trips/presenters/http/dto/update-trip.dto';
 describe('TripsController (e2e)', () => {
   let app: INestApplication;
 
-  // Mock para el servicio HTTP externo
   const mockHttpService = {
     get: jest.fn(),
   };
@@ -20,12 +19,12 @@ describe('TripsController (e2e)', () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
       imports: [AppModule],
     })
-      .overrideProvider(HttpService) // Sobrescribimos el HttpService
+      .overrideProvider(HttpService)
       .useValue(mockHttpService)
       .compile();
 
     app = moduleFixture.createNestApplication();
-    app.useGlobalPipes(new ValidationPipe({ whitelist: true })); // Usamos los mismos pipes que en producción
+    app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
     await app.init();
   });
 

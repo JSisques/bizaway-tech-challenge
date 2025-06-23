@@ -30,8 +30,6 @@ import {
 } from '@nestjs/swagger';
 import { TripResponseDto } from './dto/trip-response.dto';
 
-//TODO: Implement piscina to work with threads
-
 @ApiTags('trips')
 @Controller('trips')
 export class TripController {
