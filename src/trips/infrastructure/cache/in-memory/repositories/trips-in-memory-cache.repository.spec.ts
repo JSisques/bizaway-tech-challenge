@@ -3,9 +3,9 @@ import { Trip } from 'src/trips/domain/trip';
 import { TripPlace } from 'src/trips/domain/value-objects/trip-place';
 import { TripType } from 'src/trips/domain/value-objects/trip-type';
 import { TripInMemoryCacheEntity } from '../entities/trip-in-memory-cache.entity';
-import { TripInMemoryCacheMapper } from '../mapper/trip-in-memory-cache.entity';
+import { TripInMemoryCacheMapper } from '../mapper/trip-in-memory-cache.mapper';
 
-jest.mock('../mapper/trip-in-memory-cache.entity');
+jest.mock('../mapper/trip-in-memory-cache.mapper');
 
 describe('TripsInMemoryCacheRepository', () => {
   let repository: TripsInMemoryCacheRepository;

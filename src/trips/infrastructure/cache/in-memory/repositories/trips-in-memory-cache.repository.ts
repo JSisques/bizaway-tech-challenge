@@ -1,7 +1,7 @@
 import { Trip } from 'src/trips/domain/trip';
 import { TripCacheRepository } from 'src/trips/application/ports/trip-cache.repository';
 import { TripInMemoryCacheEntity } from '../entities/trip-in-memory-cache.entity';
-import { TripInMemoryCacheMapper } from '../mapper/trip-in-memory-cache.entity';
+import { TripInMemoryCacheMapper } from '../mapper/trip-in-memory-cache.mapper';
 import { Logger } from '@nestjs/common';
 
 interface CacheEntry {
