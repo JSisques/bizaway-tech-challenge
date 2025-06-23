@@ -88,7 +88,8 @@
       "!src/**/*.primitive.ts",
       "!src/**/*.constant.ts",
       "!src/**/*.command.ts",
-      "!src/**/*.query.ts"
+      "!src/**/*.query.ts",
+      "!src/**/*.entity.ts"
     ],
     "coverageDirectory": "coverage",
     "testEnvironment": "node",

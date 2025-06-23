@@ -13,7 +13,7 @@ export class TripSavedEventHandler {
     );
 
     /**
-     * Here we could implement some logic after a trip is created
+     * Here we could implement some logic after a trip is saved
      */
   }
 }
