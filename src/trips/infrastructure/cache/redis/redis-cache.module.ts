@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { TripCacheRepository } from 'src/trips/application/ports/trip-cache.repository';
-import { TripRedisCacheRepository } from './repositories/trip-cache.repository';
+import { TripRedisCacheRepository } from './repositories/trips-cache.repository';
 
 @Module({
   imports: [],
