@@ -54,7 +54,6 @@ export class SearchQueryHandler implements IQueryHandler<SearchTripQuery> {
       }),
     );
 
-    //TODO: Refactor this to use a proper error handling
     if (responseStatus !== 200)
       throw new Error('Failed to fetch data from external API');
 
