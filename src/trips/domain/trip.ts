@@ -4,7 +4,8 @@ import { TripPlace } from './value-objects/trip-place';
 import { TripType } from './value-objects/trip-type';
 
 /**
- * Represents a Trip domain entity
+ * Represents a Trip domain entity that encapsulates all trip-related data and behavior
+ * @class
  */
 export class Trip {
   /** Human readable representation of the trip */
@@ -12,12 +13,13 @@ export class Trip {
 
   /**
    * Creates a new Trip instance
-   * @param id - Unique identifier for the trip
-   * @param origin - Starting location of the trip
-   * @param destination - End location of the trip
-   * @param cost - Cost of the trip
-   * @param duration - Duration of the trip in minutes
-   * @param type - Type of transportation for the trip
+   * @param {string} id - Unique identifier for the trip
+   * @param {TripPlace} origin - Starting location of the trip
+   * @param {TripPlace} destination - End location of the trip
+   * @param {number} cost - Cost of the trip
+   * @param {number} duration - Duration of the trip in minutes
+   * @param {TripType} type - Type of transportation for the trip
+   * @throws {InvalidTripException} When validation fails for any trip properties
    */
   constructor(
     public readonly id: string,
@@ -33,7 +35,7 @@ export class Trip {
 
   /**
    * Generates a human readable string representation of the trip
-   * @returns Formatted string with origin, destination and transport type
+   * @returns {string} Formatted string with origin, destination and transport type
    * @private
    */
   private generateDisplayName(): string {
@@ -42,7 +44,7 @@ export class Trip {
 
   /**
    * Converts the Trip domain object to a primitive representation
-   * @returns Trip data in primitive form
+   * @returns {TripPrimitive} Trip data in primitive form
    */
   toPrimitives(): TripPrimitive {
     return new TripPrimitive(
@@ -58,8 +60,9 @@ export class Trip {
 
   /**
    * Creates a Trip domain object from primitive data
-   * @param trip - Trip data in primitive form
-   * @returns New Trip domain object
+   * @param {TripPrimitive} trip - Trip data in primitive form
+   * @returns {Trip} New Trip domain object
+   * @throws {InvalidTripException} When validation fails for the created trip
    */
   static fromPrimitives(trip: TripPrimitive): Trip {
     return new Trip(
@@ -72,6 +75,11 @@ export class Trip {
     );
   }
 
+  /**
+   * Validates the trip properties
+   * @throws {InvalidTripException} When origin and destination are the same, or cost/duration are not positive
+   * @private
+   */
   private validate(): void {
     if (this.origin.getValue() === this.destination.getValue()) {
       throw new InvalidTripException(
